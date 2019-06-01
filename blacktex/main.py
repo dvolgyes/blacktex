@@ -14,8 +14,9 @@ def _remove_comments(string):
     string = "\n".join([lines[k] for k in range(len(lines)) if k not in comment_lines])
 
     # https://stackoverflow.com/a/2319116/353337
-    string = re.sub("%.*?\n", "\n", string)
-    string = re.sub("%.*?$", "", string)
+    # https://stackoverflow.com/questions/13947933/python-regex-negative-lookbehind
+    string = re.sub("(?<!\\\\)%.*?\n", "\n", string)
+    string = re.sub("(?<!\\\\)%.*?$", "", string)    
     return string
 
 
